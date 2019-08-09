@@ -29,6 +29,6 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compile 'com.arangodb:arangodb-spring-data:3.0.0'
+    compile 'com.arangodb:arangodb-spring-data:3.1.0'
     compile 'com.arangodb:arangodb-java-driver:2.2.1'
 }
