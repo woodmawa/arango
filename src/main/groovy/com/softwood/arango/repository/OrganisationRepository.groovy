@@ -4,6 +4,7 @@ package com.softwood.arango.repository
 import com.softwood.arango.model.Organisation
 import com.arangodb.springframework.repository.ArangoRepository
 
-public interface OrganisationRepository extends ArangoRepository<Organisation> {
+//needs the class type, and type of field tagged with @Id in model
+public interface OrganisationRepository extends ArangoRepository<Organisation, String> {
 
 }

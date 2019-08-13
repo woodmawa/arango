@@ -8,7 +8,7 @@ import com.arangodb.springframework.annotation.Document
 public class Organisation {
 
     @Id
-    private Long id
+    private String id
 
     private String name
     private String webAddress
