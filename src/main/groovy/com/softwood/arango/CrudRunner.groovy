@@ -12,6 +12,8 @@ import com.softwood.arango.model.Organisation
 import com.arangodb.springframework.core.ArangoOperations
 import org.springframework.data.domain.Example
 
+import java.util.concurrent.TimeUnit
+
 @ComponentScan("com.softwood.arango")
 public class CrudRunner implements CommandLineRunner {
 
@@ -34,8 +36,6 @@ public class CrudRunner implements CommandLineRunner {
 
         CollectionPropertiesEntity props = coll.getProperties()
         println props.name
-        println props.dump()
-
 
         // the generated id from the database is set in the original entity
         println(String.format("vf organisation saved in the database with id: '%s'", vf.id))
@@ -48,6 +48,29 @@ public class CrudRunner implements CommandLineRunner {
 
         repository.findOne()
         println(String.format("Found %s", foundOrg.name))
+
+        def v
+        String ref
+        def org
+        println "insert bulk records"
+        def start = System.nanoTime()
+        def vArr = []
+        //write 100k records
+        for (int i=1; i<100001;i++) {
+            ref = "object#[${-> i}]"
+            org = new Organisation (name: "Object#[$ref]", inaugurated:2000)
+             vArr << org
+
+        }
+        println vArr.size() + " verticies to insert"
+
+        repository.saveAll (vArr)
+
+        def end = System.nanoTime()
+        def duration = (end - start)
+        def period = TimeUnit.MILLISECONDS.convert(duration, TimeUnit.NANOSECONDS)/1000
+
+        println "Arango 100K records done in duration " + period + " seconds"
 
     }
 
