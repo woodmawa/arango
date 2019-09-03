@@ -16,6 +16,6 @@ class ArangoConfiguration extends AbstractArangoConfiguration {
 
     @Override
     public String database() {
-        return "arango-demo"
+        return "testDB"
     }
 }
