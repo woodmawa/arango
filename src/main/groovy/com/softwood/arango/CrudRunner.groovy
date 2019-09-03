@@ -62,7 +62,7 @@ public class CrudRunner implements CommandLineRunner {
              vArr << org
 
         }
-        println vArr.size() + " verticies to insert"
+        println vArr.size() + " verticies to insert in arangodb"
 
         repository.saveAll (vArr)
 
