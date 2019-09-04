@@ -8,8 +8,8 @@ import com.softwood.arango.model.Site
 import org.springframework.data.annotation.Id
 
 
-@Edge ("owns")
-class Owns {
+@Edge //("owns")
+class WorksInMany {
 
     @Id
     private String id
@@ -24,4 +24,9 @@ class Owns {
     private Organisation org
     @To
     private Site site*/
+
+    @Override
+    String toString() {
+        return "site [id=$site] belonging to org [id=$owningOrg]"
+    }
 }

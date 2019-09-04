@@ -3,10 +3,10 @@ package com.softwood.arango
 
 import com.arangodb.entity.CollectionPropertiesEntity
 import com.arangodb.springframework.core.CollectionOperations
-import com.softwood.arango.relationships.Owns
+import com.softwood.arango.relationships.WorksInMany
 import com.softwood.arango.model.Site
 import com.softwood.arango.repository.OrganisationRepository
-import com.softwood.arango.repository.OwnsRepository
+import com.softwood.arango.repository.BelongsToRepository
 import com.softwood.arango.repository.SiteRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -15,8 +15,6 @@ import org.springframework.context.annotation.ComponentScan
 import com.softwood.arango.model.Organisation
 import com.arangodb.springframework.core.ArangoOperations
 import org.springframework.data.domain.Example
-
-import java.util.concurrent.TimeUnit
 
 @ComponentScan("com.softwood.arango")
 public class CrudRunner implements CommandLineRunner {
@@ -30,7 +28,7 @@ public class CrudRunner implements CommandLineRunner {
     private SiteRepository siteRepo
 
     @Autowired
-    private OwnsRepository ownsRepo
+    private BelongsToRepository ownsRepo
 
     @Override
     public void run(final String... args) throws Exception {
@@ -47,7 +45,7 @@ public class CrudRunner implements CommandLineRunner {
 
         assert siteRepo.count() == 1
 
-        Owns owns = new Owns (owningOrg:vf, site:s)  //create relationship
+        WorksInMany owns = new WorksInMany (owningOrg:vf, site:s)  //create relationship
         ownsRepo.save (owns)
         println "saved owning site relationship as edge " + owns.dump()
 

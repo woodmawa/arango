@@ -1,14 +1,14 @@
 package com.softwood.arango.model
 
-import com.arangodb.springframework.annotation.Edge
-import com.arangodb.springframework.annotation.From
+
+import com.arangodb.springframework.annotation.HashIndex
 import com.arangodb.springframework.annotation.Relations
-import com.arangodb.springframework.annotation.To
-import com.softwood.arango.relationships.Owns
+import com.softwood.arango.relationships.WorksInMany
 import org.springframework.data.annotation.Id
 import com.arangodb.springframework.annotation.Document
 
 @Document("organisations")
+@HashIndex(fields=["name"], unique=true) //set unique indiex
 public class Organisation {
 
     @Id
@@ -18,10 +18,8 @@ public class Organisation {
     private String webAddress
     private Integer inaugurated
 
-    //@From
-    //private List<Owns> owns
 
-    @Relations (edges = Owns.class, maxDepth=1, direction= Relations.Direction.ANY)
+    @Relations (edges = WorksInMany.class, maxDepth=1, direction= Relations.Direction.ANY, lazy=false)
     private List<Site> sites = []
 
     String toString () {
