@@ -59,7 +59,7 @@ public class CrudRunner implements CommandLineRunner {
 
         // save a single entity in the database
         // there is no need of creating the collection first. This happen automatically
-        final Organisation bank = new Organisation(name:" NatWest", inaugurated: 1870, webAddress:"NatWest.com")
+        final Organisation bank = new Organisation(name:"NatWest", inaugurated: 1870, webAddress:"NatWest.com")
         orgRepo.save(bank)
 
         final Site s = new Site (name:"Mirfield Branch", org: bank)
@@ -84,10 +84,12 @@ public class CrudRunner implements CommandLineRunner {
         println "collection ('site') with name : " + props.name
 
         // the generated id from the database is set in the original entity
-        println(String.format("bank organisation saved in the database with id: '%s'", bank.id))
+        println(String.format("bank '%s' organisation saved in the database with id: '%s'", bank.name, bank.id))
 
         // create an example from saved object and use to query the db - findOne returns Optional<T>
-        Optional<Organisation> res = orgRepo.findOne(Example.of(bank))
+        //Optional<Organisation> res = orgRepo.findOne(Example.of(bank))
+        //Optional<Organisation> res = orgRepo.findByName("NatWest")
+        Optional<Organisation> res = orgRepo.findById(bank.id)
         assert res.isPresent()
 
         final Organisation foundOrg = res.get()

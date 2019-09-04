@@ -1,5 +1,7 @@
 package com.softwood.arango
 
+import com.softwood.arango.model.Organisation
+import com.softwood.arango.relationships.OperatesFromMany
 import com.softwood.arango.repository.OperatesFromManyRepository
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
@@ -22,12 +24,20 @@ class RelationsRunner implements CommandLineRunner {
         println "in RelationsRunner "
 
         println "create and save some orgs "
-        orgsRepo (CrudRunner.createOrgs())
+        orgsRepo.saveAll (CrudRunner.createOrgs())
 
         println "create and save some sites  "
-        sitesRepo (CrudRunner.createSites())
+        sitesRepo.saveAll (CrudRunner.createSites())
 
         println "query for HSBC and find "
-        orgsRepo.findByName ("HSBC").each {println "${it.name} id[${it.id}]" }
+        Optional<Organisation> res = orgsRepo.findByName ("HSBC")
+        res.ifPresent({bank ->
+            Optional<Organisation> s = sitesRepo.findByName ("Canary wharf, HQ")
+            s.ifPresent( {site ->
+                ownsRepo.save (new OperatesFromMany(owningOrg:bank, site:site))
+            })
+        })
+        println "ownsRepo contains " + ownsRepo.count()
+        println res.get().sites
     }
 }

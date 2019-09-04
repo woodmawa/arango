@@ -12,7 +12,7 @@ class ArangoApplication {
     static void main(String[] args) {
         //SpringApplication.run(ArangoApplication, args)
 
-        Object[] runners = Arrays.asList (CrudRunner.class, RelationsRunner.class)  //new Object[]
+        Class[] runners = Arrays.asList (CrudRunner.class, RelationsRunner.class)  //new Object[]
         System.exit(SpringApplication.exit(SpringApplication.run(runners, args)))
 
     }

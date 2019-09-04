@@ -19,7 +19,8 @@ public class Organisation {
     private Integer inaugurated
 
 
-    @Relations (edges = OperatesFromMany.class, maxDepth=1, direction= Relations.Direction.ANY, lazy=false)
+    @Relations (edges = OperatesFromMany.class, maxDepth=1, direction= Relations.Direction.ANY, lazy=true)
+    //@Relations (edges=OperatesFromMany, lazy=true)  //have to use lazy true to avoid a recursion
     private List<Site> sites = []
 
     String toString () {
