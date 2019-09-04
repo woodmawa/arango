@@ -3,10 +3,10 @@ package com.softwood.arango
 
 import com.arangodb.entity.CollectionPropertiesEntity
 import com.arangodb.springframework.core.CollectionOperations
-import com.softwood.arango.relationships.WorksInMany
+import com.softwood.arango.relationships.OperatesFromMany
 import com.softwood.arango.model.Site
 import com.softwood.arango.repository.OrganisationRepository
-import com.softwood.arango.repository.BelongsToRepository
+import com.softwood.arango.repository.OperatesFromManyRepository
 import com.softwood.arango.repository.SiteRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -28,29 +28,51 @@ public class CrudRunner implements CommandLineRunner {
     private SiteRepository siteRepo
 
     @Autowired
-    private BelongsToRepository ownsRepo
+    private OperatesFromManyRepository ownsRepo  //edge relationship
+
+    static Collection<Organisation>  createOrgs () {
+
+        Arrays.asList (
+                new Organisation(name:"Vodafone", inaugurated: 1975, webAddress:"vodafone.com"),
+                new Organisation(name:"BT", inaugurated: 1900, webAddress:"BT.com"),
+                new Organisation(name:"HSBC", inaugurated: 1950, webAddress:"HSBC.com")
+        )
+    }
+
+    static Collection<Site> createSites () {
+        Arrays.asList (
+                new Site (name:"Newbury, HQ"),
+                new Site (name:"BT centre, St Pauls"),
+                new Site (name:"Canary wharf, HQ"),
+                new Site (name:"Ipswich Branch, HQ")
+        )
+
+    }
+
 
     @Override
     public void run(final String... args) throws Exception {
+
+        println "running crud runner"
         // first drop the database so that we can run this multiple times with the same dataset
         operations.dropDatabase()
 
         // save a single entity in the database
         // there is no need of creating the collection first. This happen automatically
-        final Organisation vf = new Organisation(name:"Vodafone", inaugurated: 2000, webAddress:"vodafone.com")
-        orgRepo.save(vf)
+        final Organisation bank = new Organisation(name:" NatWest", inaugurated: 1870, webAddress:"NatWest.com")
+        orgRepo.save(bank)
 
-        final Site s = new Site (name:"Newbury HQ", org: vf)
+        final Site s = new Site (name:"Mirfield Branch", org: bank)
         siteRepo.save (s)
 
         assert siteRepo.count() == 1
 
-        WorksInMany owns = new WorksInMany (owningOrg:vf, site:s)  //create relationship
+        OperatesFromMany owns = new OperatesFromMany (owningOrg:bank, site:s)  //create relationship
         ownsRepo.save (owns)
         println "saved owning site relationship as edge " + owns.dump()
 
-        //vf.sites.add(s) //add site to vf and save
-        //orgRepo.save(vf)  //- crashes infinite loop
+        //bank.sites.add(s) //add site to bank and save
+        //orgRepo.save(bank)  //- crashes infinite loop
 
         CollectionOperations orgColl= operations.collection(Organisation)
         CollectionOperations siteColl= operations.collection(Site)
@@ -62,10 +84,10 @@ public class CrudRunner implements CommandLineRunner {
         println "collection ('site') with name : " + props.name
 
         // the generated id from the database is set in the original entity
-        println(String.format("vf organisation saved in the database with id: '%s'", vf.id))
+        println(String.format("bank organisation saved in the database with id: '%s'", bank.id))
 
         // create an example from saved object and use to query the db - findOne returns Optional<T>
-        Optional<Organisation> res = orgRepo.findOne(Example.of(vf))
+        Optional<Organisation> res = orgRepo.findOne(Example.of(bank))
         assert res.isPresent()
 
         final Organisation foundOrg = res.get()

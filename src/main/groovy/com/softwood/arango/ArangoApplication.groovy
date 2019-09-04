@@ -4,14 +4,16 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.ComponentScan
 
+import java.lang.reflect.Array
+
 @SpringBootApplication
 class ArangoApplication {
 
     static void main(String[] args) {
         //SpringApplication.run(ArangoApplication, args)
 
-        Object[] runner = [CrudRunner.class]  //new Object[]
-        System.exit(SpringApplication.exit(SpringApplication.run(CrudRunner.class/*runner*/, args)))
+        Object[] runners = Arrays.asList (CrudRunner.class, RelationsRunner.class)  //new Object[]
+        System.exit(SpringApplication.exit(SpringApplication.run(runners, args)))
 
     }
 
