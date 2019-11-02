@@ -7,7 +7,8 @@ import com.arangodb.springframework.config.AbstractArangoConfiguration;
 
 @Configuration
 @EnableArangoRepositories(basePackages = [ "com.softwood.arango" ])
-class ArangoConfiguration extends AbstractArangoConfiguration {  //changed since 3.2.0
+//class ArangoConfiguration extends AbstractArangoConfiguration {  //changed since 3.2.0
+class ArangoConfiguration implements com.arangodb.springframework.config.ArangoConfiguration {
 //class ArangoConfiguration  {
 
 
