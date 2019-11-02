@@ -37,6 +37,8 @@ class RelationsRunner implements CommandLineRunner {
                 ownsRepo.save (new OperatesFromMany(owningOrg:bank, site:site))
             })
         })
+
+        Collection<Organisation> anotherRes = orgsRepo.findByName ("xxx")
         println "ownsRepo contains " + ownsRepo.count()
         println res.get().sites
     }
