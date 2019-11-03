@@ -36,7 +36,7 @@ class QueryRunner implements CommandLineRunner{
         assert count == orgCount
 
         println("## Return all Organisations sorted by name")
-        Iterable<Organisation> allSorted = orgRepo.findAll(new Sort(new Sort.Order(Sort.Direction.ASC, "name")))
-        allSorted.forEach(System.out.&println)
+        Iterable<Organisation> allSorted = orgRepo.findAll(Sort.by(Sort.Direction.ASC, "name"))
+        allSorted.forEach(/*System::println*/ {println it})
     }
 }

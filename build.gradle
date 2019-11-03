@@ -26,7 +26,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     //implementation 'org.codehaus.groovy:groovy'
-    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.0-rc-1', ext: 'pom'
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.0-rc-1' //, ext: 'pom'
 
 
 //    testImplementation group: 'org.spockframework', name: 'spock-core', version: '1.3-groovy-2.5'
