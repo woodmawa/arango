@@ -53,8 +53,9 @@ public class CrudRunner implements CommandLineRunner {
     @Override
     public void run(final String... args) throws Exception {
 
-        println "running crud runner"
-        // first drop the database so that we can run this multiple times with the same dataset
+        println "--- running crud  runner ---"
+
+         // first drop the database so that we can run this multiple times with the same dataset
         operations.dropDatabase()
 
         // save a single entity in the database

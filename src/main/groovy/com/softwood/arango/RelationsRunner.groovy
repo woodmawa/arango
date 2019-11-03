@@ -21,7 +21,7 @@ class RelationsRunner implements CommandLineRunner {
 
     @Override
     public void run (final String... args) {
-        println "in RelationsRunner "
+        println "--- running relations  runner ---"
 
         println "create and save some orgs "
         orgsRepo.saveAll (CrudRunner.createOrgs())
