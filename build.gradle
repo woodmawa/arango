@@ -17,6 +17,9 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    all {
+        resolutionStrategy.force 'org.codehaus.groovy:groovy-all:3.0.0-rc-1'
+    }
 }
 
 repositories {
