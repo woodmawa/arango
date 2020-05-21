@@ -37,6 +37,6 @@ class QueryRunner implements CommandLineRunner{
 
         println("## Return all Organisations sorted by name")
         Iterable<Organisation> allSorted = orgRepo.findAll(Sort.by(Sort.Direction.ASC, "name"))
-        allSorted.forEach(/*System::println*/ {println it})
+        allSorted.forEach(System.out::println)
     }
 }
