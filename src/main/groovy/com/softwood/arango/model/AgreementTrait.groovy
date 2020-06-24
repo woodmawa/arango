@@ -1,5 +1,7 @@
 package com.softwood.arango.model
 
+import java.time.Duration
+
 /**
  * capability mixin capability
  */
@@ -11,4 +13,11 @@ trait Agreement {
 
 trait AgreementItem {
     Product product
+}
+
+//see above note
+trait AgreementTermOrCondition {
+    String number
+    String description
+    Duration timePeriod
 }
