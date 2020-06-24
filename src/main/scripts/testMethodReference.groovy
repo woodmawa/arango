@@ -1,4 +1,3 @@
-
 def mr = System::println
 
-mr ("hello")
+mr("hello")

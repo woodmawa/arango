@@ -2,25 +2,20 @@ package com.softwood.arango.model
 
 import com.arangodb.springframework.annotation.Document
 import com.arangodb.springframework.annotation.HashIndex
-import com.arangodb.springframework.annotation.Ref
-import com.arangodb.springframework.annotation.To
 import groovy.transform.EqualsAndHashCode
 import org.springframework.data.annotation.Id
 
-@Document("sites")
-@HashIndex(fields = ["name"], unique = false)
+@Document("products")
+@HashIndex(fields = ["name"], unique = true)
 @EqualsAndHashCode
-class Site {
+class Product {
 
     @Id
     private String id
 
-    @Ref
-    private Organisation org
-
     String name
 
-    String toString() {
-        "Site : $name [$id]"
+    String toString () {
+        "contract :  $name [$id]"
     }
 }

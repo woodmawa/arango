@@ -16,7 +16,7 @@ if (!db.exists()) {
 }
 
 ArangoGraph graph = db.graph("graph")
-if (!graph.exists()){
+if (!graph.exists()) {
     println "create 'graph'"
     db.createGraph("graph", [])
 }
@@ -26,7 +26,7 @@ println "existing graph collections are : $existing "
 
 //add collection to graph
 graph.addVertexCollection("Organisations")
-ArangoVertexCollection orgsColl = graph.vertexCollection ("Organisations")
+ArangoVertexCollection orgsColl = graph.vertexCollection("Organisations")
 
 //graph.a.addEdgeCollection("parent")
 //graph.edgeCollection("parent")
@@ -35,7 +35,7 @@ BaseDocument vertx = new BaseDocument()
 vertx.addAttribute('id', 1)
 vertx.addAttribute('name', "vodafone")
 
-println   "created vertx"
+println "created vertx"
 assert orgsColl.name() == 'Organisations'
 def rec = orgsColl.insertVertex(vertx, new VertexCreateOptions())
 

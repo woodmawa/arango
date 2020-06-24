@@ -8,13 +8,14 @@ import com.softwood.arango.model.Site
 import org.springframework.data.annotation.Id
 
 
-@Edge //("owns")
+@Edge
+//("owns")
 class OperatesFromMany {
 
     @Id
     private String id
 
-    @From(lazy=true)
+    @From(lazy = true)
     private Organisation owningOrg
 
     @To

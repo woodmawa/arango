@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.domain.Sort
 
 @ComponentScan("com.softwood.arango")
-class QueryRunner implements CommandLineRunner{
+class QueryRunner implements CommandLineRunner {
     @Autowired
     private ArangoOperations operations
     @Autowired
@@ -25,7 +25,7 @@ class QueryRunner implements CommandLineRunner{
 
 
     @Override
-    public void run (final String... args) {
+    public void run(final String... args) {
         println "--- running  query runner ---"
 
         long orgCount

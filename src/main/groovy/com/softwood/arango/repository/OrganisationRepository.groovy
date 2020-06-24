@@ -7,5 +7,5 @@ import com.arangodb.springframework.repository.ArangoRepository
 //needs the class type, and type of field tagged with @Id in model
 public interface OrganisationRepository extends ArangoRepository<Organisation, String> {
 
-    Collection<Organisation> findByName (String name)
+    Collection<Organisation> findByName(String name)
 }
