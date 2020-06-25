@@ -8,10 +8,10 @@ import com.softwood.arango.model.Customer
 import com.softwood.arango.model.Organisation
 import com.softwood.arango.model.PartyRole
 import com.softwood.arango.model.Site
-import com.softwood.arango.relationships.OperatesFromMany
+import com.softwood.arango.relationships.HasContract
 import com.softwood.arango.repository.ContractRepository
 import com.softwood.arango.repository.CustomerRepository
-import com.softwood.arango.repository.HasContractRepository
+import com.softwood.arango.repository.HasContractRelationshipRepository
 import com.softwood.arango.repository.OperatesFromManyRepository
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
@@ -40,7 +40,7 @@ public class CustomerCrudRunner implements CommandLineRunner {
     private ContractRepository contractRepo
 
     @Autowired
-    private HasContractRepository hasContractsRepo  //edge relationship
+    private HasContractRelationshipRepository hasContractsRelRepo  //edge relationship
 
     @Autowired
     private OperatesFromManyRepository ownsRepo  //edge relationship
@@ -91,6 +91,13 @@ public class CustomerCrudRunner implements CommandLineRunner {
         //createSites()
 
         custRepo.saveAll(createCustomers(orgRepo))
+        Customer cust = custRepo.findByName("HSBC")
+
+        Contract firstContract =  new Contract (name: "first contract", dateSigned: LocalDateTime.now(), documentNumber: "contract/1/1", statementOfIntent: "opening gambit")
+        contractRepo.save (firstContract)
+
+        HasContract hasContract = new HasContract (owningCustomer: cust, contract: firstContract)
+        hasContractsRelRepo.save (hasContract)
 
         CollectionOperations custColl = operations.collection(Customer)
         CollectionOperations orgColl = operations.collection(Organisation)

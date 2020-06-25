@@ -7,5 +7,5 @@ import com.softwood.arango.model.Organisation
 //needs the class type, and type of field tagged with @Id in model
 public interface ContractRepository extends ArangoRepository<Contract, String> {
 
-    Contract findByName(String name)
+    Optional<Contract> findByName(String name)
 }

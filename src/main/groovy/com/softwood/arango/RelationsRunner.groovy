@@ -2,7 +2,7 @@ package com.softwood.arango
 
 import com.softwood.arango.model.Organisation
 import com.softwood.arango.model.Site
-import com.softwood.arango.relationships.OperatesFromMany
+import com.softwood.arango.relationships.OperatesFromSites
 import com.softwood.arango.repository.OperatesFromManyRepository
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
@@ -29,7 +29,7 @@ class RelationsRunner implements CommandLineRunner {
         res.ifPresent({ bank ->
             Optional<Site> s = sitesRepo.findByName("Canary wharf, HQ")
             s.ifPresent({ site ->
-                ownsRepo.save(new OperatesFromMany(owningOrg: bank, site: site))
+                ownsRepo.save(new OperatesFromSites(owningOrg: bank, site: site))
             })
         })
 

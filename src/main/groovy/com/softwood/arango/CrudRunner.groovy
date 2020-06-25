@@ -3,8 +3,8 @@ package com.softwood.arango
 
 import com.arangodb.entity.CollectionPropertiesEntity
 import com.arangodb.springframework.core.CollectionOperations
-import com.softwood.arango.relationships.OperatesFromMany
 import com.softwood.arango.model.Site
+import com.softwood.arango.relationships.OperatesFromSites
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.OperatesFromManyRepository
 import com.softwood.arango.repository.SiteRepository
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan
 
 import com.softwood.arango.model.Organisation
 import com.arangodb.springframework.core.ArangoOperations
-import org.springframework.data.domain.Example
 
 @ComponentScan("com.softwood.arango")
 public class CrudRunner implements CommandLineRunner {
@@ -68,7 +67,7 @@ public class CrudRunner implements CommandLineRunner {
 
         assert siteRepo.count() == 1
 
-        OperatesFromMany owns = new OperatesFromMany(owningOrg: bank, site: s)  //create relationship
+        OperatesFromSites owns = new OperatesFromSites(owningOrg: bank, site: s)  //create relationship
         ownsRepo.save(owns)
         println "saved owning site relationship as edge " + owns.dump()
 

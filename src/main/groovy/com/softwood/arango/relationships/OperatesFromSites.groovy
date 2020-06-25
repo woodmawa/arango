@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id
 
 @Edge
 //("owns")
-class OperatesFromMany {
+class OperatesFromSites {
 
     @Id
     private String id

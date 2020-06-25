@@ -3,7 +3,7 @@ package com.softwood.arango.model
 
 import com.arangodb.springframework.annotation.HashIndex
 import com.arangodb.springframework.annotation.Relations
-import com.softwood.arango.relationships.OperatesFromMany
+import com.softwood.arango.relationships.OperatesFromSites
 import groovy.transform.EqualsAndHashCode
 import org.springframework.data.annotation.Id
 import com.arangodb.springframework.annotation.Document
@@ -35,8 +35,8 @@ public class Organisation {
     OrgType type
 
 
-    @Relations(edges = OperatesFromMany.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)
-    //@Relations (edges=OperatesFromMany, lazy=true)  //have to use lazy true to avoid a recursion
+    @Relations(edges = OperatesFromSites.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)
+    //@Relations (edges=OperatesFromSites, lazy=true)  //have to use lazy true to avoid a recursion
     Collection<Site> sites = []
 
     String toString() {
