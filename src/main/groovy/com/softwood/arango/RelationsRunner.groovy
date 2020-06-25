@@ -1,6 +1,7 @@
 package com.softwood.arango
 
 import com.softwood.arango.model.Organisation
+import com.softwood.arango.model.Site
 import com.softwood.arango.relationships.OperatesFromMany
 import com.softwood.arango.repository.OperatesFromManyRepository
 import com.softwood.arango.repository.OrganisationRepository
@@ -32,13 +33,13 @@ class RelationsRunner implements CommandLineRunner {
         println "query for HSBC and find "
         Optional<Organisation> res = orgsRepo.findByName("HSBC")
         res.ifPresent({ bank ->
-            Optional<Organisation> s = sitesRepo.findByName("Canary wharf, HQ")
+            Optional<Site> s = sitesRepo.findByName("Canary wharf, HQ")
             s.ifPresent({ site ->
                 ownsRepo.save(new OperatesFromMany(owningOrg: bank, site: site))
             })
         })
 
-        Collection<Organisation> anotherRes = orgsRepo.findByName("xxx")
+        //Optional<Organisation> anotherRes = orgsRepo.findByName("xxx")
         println "ownsRepo contains " + ownsRepo.count()
         println res.get().sites
     }

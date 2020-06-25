@@ -37,7 +37,7 @@ public class Organisation {
 
     @Relations(edges = OperatesFromMany.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)
     //@Relations (edges=OperatesFromMany, lazy=true)  //have to use lazy true to avoid a recursion
-    private List<Site> sites = []
+    Collection<Site> sites = []
 
     String toString() {
         "Organisation : $name [$id]"

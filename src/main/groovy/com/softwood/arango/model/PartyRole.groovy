@@ -1,5 +1,14 @@
 package com.softwood.arango.model
 
-class PartyRole {
-    
+abstract class PartyRole {
+
+    enum RoleType {
+        Customer,
+        Maintainer,
+        ServiceProvider,
+        Manufacturer
+    }
+
+    RoleType role
+    Organisation organisation
 }

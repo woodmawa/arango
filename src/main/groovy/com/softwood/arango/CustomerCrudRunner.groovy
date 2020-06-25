@@ -1,34 +1,63 @@
 package com.softwood.arango
 
-
 import com.arangodb.entity.CollectionPropertiesEntity
+import com.arangodb.springframework.core.ArangoOperations
 import com.arangodb.springframework.core.CollectionOperations
-import com.softwood.arango.relationships.OperatesFromMany
+import com.softwood.arango.model.Contract
+import com.softwood.arango.model.Customer
+import com.softwood.arango.model.Organisation
+import com.softwood.arango.model.PartyRole
 import com.softwood.arango.model.Site
-import com.softwood.arango.repository.OrganisationRepository
+import com.softwood.arango.relationships.OperatesFromMany
+import com.softwood.arango.repository.ContractRepository
+import com.softwood.arango.repository.CustomerRepository
+import com.softwood.arango.repository.HasContractRepository
 import com.softwood.arango.repository.OperatesFromManyRepository
+import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.ComponentScan
 
-import com.softwood.arango.model.Organisation
-import com.arangodb.springframework.core.ArangoOperations
-import org.springframework.data.domain.Example
+import java.time.LocalDateTime
 
 @ComponentScan("com.softwood.arango")
-public class CrudRunner implements CommandLineRunner {
+public class CustomerCrudRunner implements CommandLineRunner {
 
     @Autowired
     private ArangoOperations operations
+    @Autowired
+    private CustomerRepository custRepo
+
     @Autowired
     private OrganisationRepository orgRepo
 
     @Autowired
     private SiteRepository siteRepo
 
+
+    @Autowired
+    private ContractRepository contractRepo
+
+    @Autowired
+    private HasContractRepository hasContractsRepo  //edge relationship
+
     @Autowired
     private OperatesFromManyRepository ownsRepo  //edge relationship
+
+
+    static Collection<Organisation> createCustomers(OrganisationRepository orgRepo) {
+
+        Optional<Organisation> vodafoneOrg = orgRepo.findByName("Vodafone")
+        Optional<Organisation> btOrg = orgRepo.findByName("BT")
+        Optional<Organisation> hsbcOrg = orgRepo.findByName("HSBC")
+
+        Arrays.asList(
+                new Customer(name: "Vodafone", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer, organisation: vodafoneOrg.get()),
+                new Customer(name: "BT", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer, organisation: btOrg.get()),
+                new Customer(name: "HSBC", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer, organisation: hsbcOrg.get())
+        )
+    }
 
     static Collection<Organisation> createOrgs() {
 
@@ -49,57 +78,42 @@ public class CrudRunner implements CommandLineRunner {
 
     }
 
-
     @Override
     public void run(final String... args) throws Exception {
 
-        println "--- running crud  runner ---"
+        println "--- running customer crud  runner ---"
 
         // first drop the database so that we can run this multiple times with the same dataset
-        operations.dropDatabase()
+        //operations.dropDatabase()
 
-        // save a single entity in the database
-        // there is no need of creating the collection first. This happen automatically
-        final Organisation bank = new Organisation(name: "NatWest", inaugurated: 1870, webAddress: "NatWest.com")
-        orgRepo.save(bank)
+        //crud runner will run these
+        //createOrgs()
+        //createSites()
 
-        final Site s = new Site(name: "Mirfield Branch", org: bank)
-        siteRepo.save(s)
+        custRepo.saveAll(createCustomers(orgRepo))
 
-        assert siteRepo.count() == 1
-
-        OperatesFromMany owns = new OperatesFromMany(owningOrg: bank, site: s)  //create relationship
-        ownsRepo.save(owns)
-        println "saved owning site relationship as edge " + owns.dump()
-
-        //bank.sites.add(s) //add site to bank and save
-        //orgRepo.save(bank)  //- crashes infinite loop
-
+        CollectionOperations custColl = operations.collection(Customer)
         CollectionOperations orgColl = operations.collection(Organisation)
         CollectionOperations siteColl = operations.collection(Site)
 
         CollectionPropertiesEntity props = siteColl.getProperties()
-        println "collection ('organisation') with name : " + props.name
-
-        props = siteColl.getProperties()
         println "collection ('site') with name : " + props.name
 
+        props = custColl.getProperties()
+        println "collection ('customer') with name : " + props.name
+
         // the generated id from the database is set in the original entity
-        println(String.format("bank '%s' organisation saved in the database with id: '%s'", bank.name, bank.id))
+        //println(String.format("bank '%s' organisation saved in the database with id: '%s'", bank.name, bank.id))
 
         // create an example from saved object and use to query the db - findOne returns Optional<T>
         //Optional<Organisation> res = orgRepo.findOne(Example.of(bank))
         //Optional<Organisation> res = orgRepo.findByName("NatWest")
-        Optional<Organisation> res = orgRepo.findById(bank.id)
-        assert res.isPresent()
+        Customer res = custRepo.findByName("BT")
+        assert res
 
-        final Organisation foundOrg = res.get()
+        final Customer foundCust = res
 
-        orgRepo.findOne()
-        println(String.format("Found vertex with name : %s and id %s", foundOrg.name, foundOrg.id))
-
-        orgRepo.saveAll(createOrgs())
-        siteRepo.saveAll(createSites())
+        println(String.format("Found customer with name : %s and id %s", foundCust.name, foundCust.id))
 
         /* bulk insert test
         def v
