@@ -115,12 +115,18 @@ public class CustomerCrudRunner implements CommandLineRunner {
         // create an example from saved object and use to query the db - findOne returns Optional<T>
         //Optional<Organisation> res = orgRepo.findOne(Example.of(bank))
         //Optional<Organisation> res = orgRepo.findByName("NatWest")
-        Customer res = custRepo.findByName("BT")
+        Customer res = custRepo.findByName("HSBC")
         assert res
 
         final Customer foundCust = res
 
         println(String.format("Found customer with name : %s and id %s", foundCust.name, foundCust.id))
+
+        //assert fails as proxy doesnt do eager select, so we have get The Contracts to
+        //force the read
+
+        def conList = foundCust.getContracts()
+        println "foundCust has contracts list of size :  ${foundCust.contracts.size ()}"
 
         /* bulk insert test
         def v
