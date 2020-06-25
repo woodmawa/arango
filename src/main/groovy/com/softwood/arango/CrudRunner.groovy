@@ -96,10 +96,15 @@ public class CrudRunner implements CommandLineRunner {
         final Organisation foundOrg = res.get()
 
         orgRepo.findOne()
-        println(String.format("Found vertex with name : %s and id %s", foundOrg.name, foundOrg.id))
+        println(String.format("Found org with name : %s and id %s", foundOrg.name, foundOrg.id))
 
-        orgRepo.saveAll(createOrgs())
-        siteRepo.saveAll(createSites())
+
+        println "create and save some orgs "
+        orgRepo.saveAll(CrudRunner.createOrgs())
+
+        println "create and save some sites  "
+        siteRepo.saveAll(CrudRunner.createSites())
+
 
         /* bulk insert test
         def v

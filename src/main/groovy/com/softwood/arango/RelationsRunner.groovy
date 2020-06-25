@@ -24,12 +24,6 @@ class RelationsRunner implements CommandLineRunner {
     public void run(final String... args) {
         println "--- running relations  runner ---"
 
-        println "create and save some orgs "
-        orgsRepo.saveAll(CrudRunner.createOrgs())
-
-        println "create and save some sites  "
-        sitesRepo.saveAll(CrudRunner.createSites())
-
         println "query for HSBC and find "
         Optional<Organisation> res = orgsRepo.findByName("HSBC")
         res.ifPresent({ bank ->
