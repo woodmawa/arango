@@ -117,15 +117,17 @@ public class CustomerCrudRunner implements CommandLineRunner {
         //Optional<Organisation> res = orgRepo.findByName("NatWest")
         Customer res = custRepo.findByName("HSBC")
         assert res
+        assert res.contracts
+        assert res.contracts.size() == 1
 
         final Customer foundCust = res
 
         println(String.format("Found customer with name : %s and id %s", foundCust.name, foundCust.id))
 
-        //assert fails as proxy doesnt do eager select, so we have get The Contracts to
-        //force the read
+        //If @relationship in customer is marked as lazy=true
+        //force the read on the proxy to return the List of contracts as second query
 
-        def conList = foundCust.getContracts()
+        //def conList = foundCust.getContracts()
         println "foundCust has contracts list of size :  ${foundCust.contracts.size ()}"
 
         /* bulk insert test

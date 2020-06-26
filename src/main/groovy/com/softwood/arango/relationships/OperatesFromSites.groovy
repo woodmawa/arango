@@ -20,11 +20,7 @@ class OperatesFromSites {
 
     @To
     private Site site
-
-    /*@From
-    private Organisation org
-    @To
-    private Site site*/
+    
 
     @Override
     String toString() {

@@ -16,7 +16,7 @@ class Site {
     private String id
 
     @Ref
-    private Organisation org
+    Organisation org
 
     String name
 
