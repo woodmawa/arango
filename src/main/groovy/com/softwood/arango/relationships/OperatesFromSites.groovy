@@ -20,7 +20,7 @@ class OperatesFromSites {
 
     @To
     private Site site
-    
+
 
     @Override
     String toString() {

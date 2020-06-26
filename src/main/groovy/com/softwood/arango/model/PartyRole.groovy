@@ -1,5 +1,7 @@
 package com.softwood.arango.model
 
+import com.arangodb.springframework.annotation.Ref
+
 abstract class PartyRole {
 
     enum RoleType {
@@ -10,5 +12,7 @@ abstract class PartyRole {
     }
 
     RoleType role
+
+    @Ref (lazy = false)
     Organisation organisation
 }
