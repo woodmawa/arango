@@ -59,24 +59,7 @@ public class CustomerCrudRunner implements CommandLineRunner {
         )
     }
 
-    static Collection<Organisation> createOrgs() {
 
-        Arrays.asList(
-                new Organisation(name: "Vodafone", inaugurated: 1975, webAddress: "vodafone.com"),
-                new Organisation(name: "BT", inaugurated: 1900, webAddress: "BT.com"),
-                new Organisation(name: "HSBC", inaugurated: 1950, webAddress: "HSBC.com")
-        )
-    }
-
-    static Collection<Site> createSites() {
-        Arrays.asList(
-                new Site(name: "Newbury, HQ"),
-                new Site(name: "BT centre, St Pauls"),
-                new Site(name: "Canary wharf, HQ"),
-                new Site(name: "Ipswich Branch, HQ")
-        )
-
-    }
 
     @Override
     public void run(final String... args) throws Exception {

@@ -5,4 +5,4 @@ import com.softwood.arango.relationships.OperatesFromSites
 
 //needs the class type, and type of field tagged with @Id in model
 //note can extend without the second type arg
-public interface OperatesFromManyRepository extends ArangoRepository<OperatesFromSites, String> {}
+public interface OperatesFromSitesRelationshipRepository extends ArangoRepository<OperatesFromSites, String> {}
