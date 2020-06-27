@@ -12,7 +12,7 @@ import com.softwood.arango.relationships.HasContract
 import com.softwood.arango.repository.ContractRepository
 import com.softwood.arango.repository.CustomerRepository
 import com.softwood.arango.repository.HasContractRelationshipRepository
-import com.softwood.arango.repository.OperatesFromManyRepository
+import com.softwood.arango.repository.OperatesFromSitesRelationshipRepository
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -43,7 +43,7 @@ public class CustomerCrudRunner implements CommandLineRunner {
     private HasContractRelationshipRepository hasContractsRelRepo  //edge relationship
 
     @Autowired
-    private OperatesFromManyRepository ownsRepo  //edge relationship
+    private OperatesFromSitesRelationshipRepository ownsRepo  //edge relationship
 
 
     static Collection<Organisation> createCustomers(OrganisationRepository orgRepo) {
@@ -107,6 +107,8 @@ public class CustomerCrudRunner implements CommandLineRunner {
 
         println(String.format("Found customer with name : %s and id %s", foundCust.name, foundCust.id))
 
+        Site s = new Site (name:'ipswich branch office', org:foundCust.organisation)
+        foundCust.addSite(s)
         //If @relationship in customer is marked as lazy=true
         //force the read on the proxy to return the List of contracts as second query
 

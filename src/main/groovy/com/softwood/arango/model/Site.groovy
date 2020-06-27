@@ -15,6 +15,10 @@ class Site {
     @Id
     private String id
 
+    final String getId() {
+        id
+    }
+
     @Ref
     Organisation org
 

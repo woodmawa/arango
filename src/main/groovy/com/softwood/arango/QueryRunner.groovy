@@ -2,7 +2,7 @@ package com.softwood.arango
 
 import com.arangodb.springframework.core.ArangoOperations
 import com.softwood.arango.model.Organisation
-import com.softwood.arango.repository.OperatesFromManyRepository
+import com.softwood.arango.repository.OperatesFromSitesRelationshipRepository
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,7 +21,7 @@ class QueryRunner implements CommandLineRunner {
     private SiteRepository siteRepo
 
     @Autowired
-    private OperatesFromManyRepository ownsRepo  //edge relationship
+    private OperatesFromSitesRelationshipRepository ownsRepo  //edge relationship
 
 
     @Override

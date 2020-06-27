@@ -7,6 +7,7 @@ import com.softwood.arango.relationships.HasContract
 import com.softwood.arango.relationships.OperatesFromSites
 import com.softwood.arango.repository.OperatesFromSitesRelationshipRepository
 import com.softwood.arango.repository.OrganisationRepository
+import com.softwood.arango.repository.SiteRepository
 import groovy.transform.EqualsAndHashCode
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.annotation.Id
@@ -20,6 +21,9 @@ class Customer extends PartyRole {
 
     @Autowired
     OperatesFromSitesRelationshipRepository orgSiteEdgeRepo
+
+    @Autowired
+    SiteRepository siteRepo
 
     @Id
     private String id
@@ -36,6 +40,10 @@ class Customer extends PartyRole {
 
     void addSite (Site site) {
         if (organisation) {
+            if (!site.id) {
+                def res = siteRepo?.save(site)
+                res
+            }
             organisation.sites.add (site)
             assert orgSiteEdgeRepo
 

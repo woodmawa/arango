@@ -5,8 +5,8 @@ import com.arangodb.entity.CollectionPropertiesEntity
 import com.arangodb.springframework.core.CollectionOperations
 import com.softwood.arango.model.Site
 import com.softwood.arango.relationships.OperatesFromSites
+import com.softwood.arango.repository.OperatesFromSitesRelationshipRepository
 import com.softwood.arango.repository.OrganisationRepository
-import com.softwood.arango.repository.OperatesFromManyRepository
 import com.softwood.arango.repository.SiteRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -27,7 +27,7 @@ public class CrudRunner implements CommandLineRunner {
     private SiteRepository siteRepo
 
     @Autowired
-    private OperatesFromManyRepository ownsRepo  //edge relationship
+    private OperatesFromSitesRelationshipRepository ownsRepo  //edge relationship
 
     static Collection<Organisation> createOrgs() {
 

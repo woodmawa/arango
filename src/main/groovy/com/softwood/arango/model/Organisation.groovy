@@ -27,7 +27,7 @@ public class Organisation {
     }
 
     @Id
-    private String id
+    String id
 
     String name
     String webAddress

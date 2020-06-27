@@ -3,7 +3,7 @@ package com.softwood.arango
 import com.softwood.arango.model.Organisation
 import com.softwood.arango.model.Site
 import com.softwood.arango.relationships.OperatesFromSites
-import com.softwood.arango.repository.OperatesFromManyRepository
+import com.softwood.arango.repository.OperatesFromSitesRelationshipRepository
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +18,7 @@ class RelationsRunner implements CommandLineRunner {
     private SiteRepository sitesRepo
 
     @Autowired
-    private OperatesFromManyRepository ownsRepo
+    private OperatesFromSitesRelationshipRepository ownsRepo
 
     @Override
     public void run(final String... args) {
