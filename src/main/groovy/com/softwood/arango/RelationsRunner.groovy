@@ -24,7 +24,7 @@ class RelationsRunner implements CommandLineRunner {
     public void run(final String... args) {
         println "--- running relations  runner ---"
 
-        println "query for HSBC and find "
+        println "query for HSBC and find banks site by name 'Canary Wharf'"
         Optional<Organisation> res = orgsRepo.findByName("HSBC")
         res.ifPresent({ bank ->
             Optional<Site> s = sitesRepo.findByName("Canary wharf, HQ")
@@ -34,7 +34,7 @@ class RelationsRunner implements CommandLineRunner {
         })
 
         //Optional<Organisation> anotherRes = orgsRepo.findByName("xxx")
-        println "ownsRepo contains " + ownsRepo.count()
+        println "linked HSBC bank to site,  ownsRepo contains " + ownsRepo.count()
         println res.get().sites
     }
 }

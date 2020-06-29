@@ -28,6 +28,11 @@ class Customer extends PartyRole {
     @Id
     private String id
 
+    //get read only copy of id
+    final String getId (){
+        id
+    }
+
     String name
     String description
     String webAddress

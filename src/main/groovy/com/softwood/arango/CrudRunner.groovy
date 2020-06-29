@@ -31,6 +31,7 @@ public class CrudRunner implements CommandLineRunner {
 
     static Collection<Organisation> createOrgs() {
 
+        println "\t> createOrgs: created 3 Orgs "
         Arrays.asList(
                 new Organisation(name: "Vodafone", inaugurated: 1975, webAddress: "vodafone.com"),
                 new Organisation(name: "BT", inaugurated: 1900, webAddress: "BT.com"),
@@ -39,6 +40,8 @@ public class CrudRunner implements CommandLineRunner {
     }
 
     static Collection<Site> createSites() {
+        println "\t> createSites: created 4 sites "
+
         Arrays.asList(
                 new Site(name: "Newbury, HQ"),
                 new Site(name: "BT centre, St Pauls"),
@@ -69,7 +72,7 @@ public class CrudRunner implements CommandLineRunner {
 
         OperatesFromSites owns = new OperatesFromSites(owningOrg: bank, site: s)  //create relationship
         ownsRepo.save(owns)
-        println "saved owning site relationship as edge " + owns.dump()
+        println "saved NatWest with owning site Mirfield, relationship as edge " + owns.dump()
 
         //bank.sites.add(s) //add site to bank and save
         //orgRepo.save(bank)  //- crashes infinite loop
@@ -98,11 +101,15 @@ public class CrudRunner implements CommandLineRunner {
         println(String.format("Found org with name : %s and id %s", foundOrg.name, foundOrg.id))
 
 
-        println "create and save some orgs "
+        println "create and save 3 orgs "
         orgRepo.saveAll(CrudRunner.createOrgs())
 
-        println "create and save some sites  "
+        assert orgRepo.count() == (3+1)
+
+        println "create and save 4 sites  "
         siteRepo.saveAll(CrudRunner.createSites())
+
+        assert siteRepo.count() == (4+1)
 
 
         /* bulk insert test

@@ -9,6 +9,7 @@ import com.softwood.arango.model.Organisation
 import com.softwood.arango.model.PartyRole
 import com.softwood.arango.model.Site
 import com.softwood.arango.relationships.HasContract
+import com.softwood.arango.relationships.OperatesFromSites
 import com.softwood.arango.repository.ContractRepository
 import com.softwood.arango.repository.CustomerRepository
 import com.softwood.arango.repository.HasContractRelationshipRepository
@@ -107,8 +108,11 @@ public class CustomerCrudRunner implements CommandLineRunner {
 
         println(String.format("Found customer with name : %s and id %s", foundCust.name, foundCust.id))
 
-        Site s = new Site (name:'ipswich branch office', org:foundCust.organisation)
-        foundCust.addSite(s)
+        Site s = new Site (name:'ipswich branch office')
+        addSite(foundCust, s)
+        assert foundCust.organisation.sites.size() == 2
+        println "list of sites for $foundCust is ${foundCust.organisation.sites}"
+
         //If @relationship in customer is marked as lazy=true
         //force the read on the proxy to return the List of contracts as second query
 
@@ -143,5 +147,26 @@ public class CustomerCrudRunner implements CommandLineRunner {
 
     }
 
+    void addSite (Customer cust,  Site site) {
+        if (cust) {
+            if (!cust.id) {
+                custRepo.save (cust)
+                assert cust.id
+            }
+            if (!site.id) {
+                if (!site.org) {
+                    site.org = cust.organisation
+                }
+                def res = siteRepo?.save(site)
+                res
+            }
+
+            assert ownsRepo
+            //create edge to link the current customer to the site, and save the edge
+            OperatesFromSites ownsSiteLink = new OperatesFromSites(owningOrg: cust.organisation, site:site)
+            def res = ownsRepo.save(ownsSiteLink)
+            res
+        }
+    }
 }
 
