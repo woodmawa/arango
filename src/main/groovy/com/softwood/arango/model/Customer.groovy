@@ -20,9 +20,6 @@ import java.time.LocalDateTime
 class Customer extends PartyRole {
 
     @Autowired
-    OperatesFromSitesRelationshipRepository orgSiteEdgeRepo
-
-    @Autowired
     SiteRepository siteRepo
 
     @Id
@@ -43,18 +40,5 @@ class Customer extends PartyRole {
     @Relations(edges = HasContract.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)
     Collection<Contract> contracts = []
 
-    void addSite (Site site) {
-        if (organisation) {
-            if (!site.id) {
-                def res = siteRepo?.save(site)
-                res
-            }
-            organisation.sites.add (site)
-            assert orgSiteEdgeRepo
-
-            //create edge to link the current customer to the site, and save the edge
-            orgSiteEdgeRepo.save(new OperatesFromSites(from: this, to:site))
-        }
-    }
 
 }

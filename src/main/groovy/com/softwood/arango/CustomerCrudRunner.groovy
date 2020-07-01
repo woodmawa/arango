@@ -1,8 +1,14 @@
 package com.softwood.arango
 
+import com.arangodb.ArangoCursor
+import com.arangodb.ArangoDB
+import com.arangodb.ArangoDatabase
+import com.arangodb.entity.BaseDocument
 import com.arangodb.entity.CollectionPropertiesEntity
+import com.arangodb.entity.DocumentEntity
 import com.arangodb.springframework.core.ArangoOperations
 import com.arangodb.springframework.core.CollectionOperations
+import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
 import com.softwood.arango.model.Contract
 import com.softwood.arango.model.Customer
 import com.softwood.arango.model.Organisation
@@ -78,10 +84,10 @@ public class CustomerCrudRunner implements CommandLineRunner {
         Customer cust = custRepo.findByName("HSBC")
 
         Contract firstContract =  new Contract (name: "first contract", dateSigned: LocalDateTime.now(), documentNumber: "contract/1/1", statementOfIntent: "opening gambit")
-        contractRepo.save (firstContract)
+        def con1 = contractRepo.save (firstContract)
 
         HasContract hasContract = new HasContract (owningCustomer: cust, contract: firstContract)
-        hasContractsRelRepo.save (hasContract)
+        def conrel = hasContractsRelRepo.save (hasContract)
 
         CollectionOperations custColl = operations.collection(Customer)
         CollectionOperations orgColl = operations.collection(Organisation)
@@ -118,6 +124,38 @@ public class CustomerCrudRunner implements CommandLineRunner {
 
         //def conList = foundCust.getContracts()
         println "foundCust has contracts list of size :  ${foundCust.contracts.size ()}"
+
+        ArangoCursor<Customer> cursor = custRepo.custQueryByNameIlike("%SBC")
+
+
+        List<Customer> custList = cursor.toList()
+
+        custList
+
+        /*def cres  = custRepo.customerListWithEmbeddedOrg ()
+
+        def l = cres.toList()
+        l*/
+
+        //register LocaldateTime pack for velocty
+        ArangoDB arango = new ArangoDB.Builder().registerModule(new VPackJdk8Module()).build()
+        ArangoDatabase testDb = arango.db("testDB")
+
+
+        String key = res.id - "customer/"
+
+        def myObject = testDb.collection("customers").getDocument(key, String.class)
+        ArangoCursor<BaseDocument> dcursor = testDb.query("""for c in customers 
+            for o in organisations 
+                filter c.organisation == o._id
+                return merge (c, {organisation: o})""",
+            BaseDocument)
+
+        List<BaseDocument> lcust = dcursor.toList()
+        BaseDocument bd_hsbc = lcust?[2]
+        Map bd_props = bd_hsbc.properties
+
+        println "bd_props : $bd_props"
 
         /* bulk insert test
         def v
