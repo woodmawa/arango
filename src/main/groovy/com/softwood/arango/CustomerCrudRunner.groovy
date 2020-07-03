@@ -145,13 +145,13 @@ public class CustomerCrudRunner implements CommandLineRunner {
         String key = res.id - "customer/"
 
         def myObject = testDb.collection("customers").getDocument(key, String.class)
-        ArangoCursor<BaseDocument> dcursor = testDb.query("""for c in customers 
+        ArangoCursor<Customer> dcursor = testDb.query("""for c in customers 
             for o in organisations 
                 filter c.organisation == o._id
                 return merge (c, {organisation: o})""",
-            String)
+            Customer /*String*/)
 
-        List<BaseDocument> lcust = dcursor.toList()
+        List<Customer> lcust = dcursor.toList()
         def bd_hsbc = lcust?[2]
         Map bd_props = bd_hsbc.properties
 
