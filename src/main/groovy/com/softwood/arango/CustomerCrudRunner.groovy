@@ -149,10 +149,10 @@ public class CustomerCrudRunner implements CommandLineRunner {
             for o in organisations 
                 filter c.organisation == o._id
                 return merge (c, {organisation: o})""",
-            BaseDocument)
+            String)
 
         List<BaseDocument> lcust = dcursor.toList()
-        BaseDocument bd_hsbc = lcust?[2]
+        def bd_hsbc = lcust?[2]
         Map bd_props = bd_hsbc.properties
 
         println "bd_props : $bd_props"
