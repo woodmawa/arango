@@ -6,6 +6,7 @@ import com.arangodb.ArangoDatabase
 import com.arangodb.entity.BaseDocument
 import com.arangodb.entity.CollectionPropertiesEntity
 import com.arangodb.entity.DocumentEntity
+import com.arangodb.springframework.annotation.BindVars
 import com.arangodb.springframework.core.ArangoOperations
 import com.arangodb.springframework.core.CollectionOperations
 import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
@@ -126,9 +127,13 @@ public class CustomerCrudRunner implements CommandLineRunner {
         assert foundCust.organisation.sites.size() == 2
         println "list of sites for $foundCust is ${foundCust.organisation.sites}"
 
-        //use AQL query method on custrepo to get sites via the custs org id 
+        //use AQL query method on custrepo to get sites via the custs org id
         String oid = "organisations/$foundCust.organisation.id"
         List<Site> sl = custRepo.customerSitesList(oid)
+
+        Map bv = [:]
+        bv.put ("oid", "organisations/${foundCust.organisation.id}".toString())
+        List<Site> sl2 = custRepo.customerSitesList2( bv)
 
         //If @relationship in customer is marked as lazy=true
         //force the read on the proxy to return the List of contracts as second query
@@ -196,26 +201,6 @@ public class CustomerCrudRunner implements CommandLineRunner {
 
     }
 
-    void addSite (Customer cust,  Site site) {
-        if (cust) {
-            if (!cust.id) {
-                custRepo.save (cust)
-                assert cust.id
-            }
-            if (!site.id) {
-                if (!site.org) {
-                    site.org = cust.organisation
-                }
-                def res = siteRepo?.save(site)
-                res
-            }
 
-            assert ownsRepo
-            //create edge to link the current customer to the site, and save the edge
-            OperatesFromSites ownsSiteLink = new OperatesFromSites(owningOrg: cust.organisation, site:site)
-            def res = ownsRepo.save(ownsSiteLink)
-            res
-        }
-    }
 }
 

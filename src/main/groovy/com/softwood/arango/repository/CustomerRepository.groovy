@@ -5,6 +5,7 @@ import com.arangodb.ArangoDB
 import com.arangodb.ArangoDatabase
 import com.arangodb.entity.BaseDocument
 import com.arangodb.model.AqlQueryOptions
+import com.arangodb.springframework.annotation.BindVars
 import com.arangodb.springframework.annotation.Query
 import com.arangodb.springframework.repository.ArangoRepository
 import com.arangodb.util.MapBuilder
@@ -38,6 +39,14 @@ for v in 1..1 outbound
     return distinct v
 """)
     List<Site> customerSitesList (@Param ("orgId") String oid)
+
+    @Query ("""
+for v in 1..1 outbound 
+    @oid
+    operatesFromSites
+    return distinct v
+""")
+    List<Site> customerSitesList2 (@BindVars Map<String, Object> bindvars)
 
     //use the java driver direct, register extra pack for LocalDateTime etc
     ArangoDB arango = new ArangoDB.Builder().registerModule(new VPackJdk8Module()).build()
