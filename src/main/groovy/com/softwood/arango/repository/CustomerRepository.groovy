@@ -30,6 +30,15 @@ public interface CustomerRepository extends ArangoRepository<Customer, String> {
     @Query ("FOR c IN customers FOR o IN organisations filter c.organisation == o._id RETURN c " )  //merge (c, {organisation: o} )
     List<Customer> customerListWithEmbeddedOrg ()
 
+    /** try and query from org-site relationship **/
+    @Query ("""
+for v in 1..1 outbound 
+    @orgId 
+    operatesFromSites
+    return distinct v
+""")
+    List<Site> customerSitesList (@Param ("orgId") String oid)
+
     //use the java driver direct, register extra pack for LocalDateTime etc
     ArangoDB arango = new ArangoDB.Builder().registerModule(new VPackJdk8Module()).build()
     ArangoDatabase testDb = arango.db("testDB")

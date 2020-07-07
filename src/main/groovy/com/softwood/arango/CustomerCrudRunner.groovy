@@ -22,6 +22,7 @@ import com.softwood.arango.repository.HasContractRelationshipRepository
 import com.softwood.arango.repository.OperatesFromSitesRelationshipRepository
 import com.softwood.arango.repository.OrganisationRepository
 import com.softwood.arango.repository.SiteRepository
+import com.softwood.arango.services.CustomerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.ComponentScan
@@ -51,6 +52,9 @@ public class CustomerCrudRunner implements CommandLineRunner {
 
     @Autowired
     private OperatesFromSitesRelationshipRepository ownsRepo  //edge relationship
+
+    @Autowired
+    private CustomerService custService
 
 
     static Collection<Organisation> createCustomers(OrganisationRepository orgRepo) {
@@ -115,9 +119,16 @@ public class CustomerCrudRunner implements CommandLineRunner {
         println(String.format("Found customer with name : %s and id %s", foundCust.name, foundCust.id))
 
         Site s = new Site (name:'ipswich branch office')
-        addSite(foundCust, s)
+
+        custService.addSite (foundCust, s)
+
+        //addSite(foundCust, s)
         assert foundCust.organisation.sites.size() == 2
         println "list of sites for $foundCust is ${foundCust.organisation.sites}"
+
+        //use AQL query method on custrepo to get sites via the custs org id 
+        String oid = "organisations/$foundCust.organisation.id"
+        List<Site> sl = custRepo.customerSitesList(oid)
 
         //If @relationship in customer is marked as lazy=true
         //force the read on the proxy to return the List of contracts as second query

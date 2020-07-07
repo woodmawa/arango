@@ -24,6 +24,6 @@ class OperatesFromSites {
 
     @Override
     String toString() {
-        return "site [id=$site] belonging to org [id=$owningOrg]"
+        return "ownsSiteEdge: [id=$this.id],  site [$site] belonging to org [$owningOrg]"
     }
 }
