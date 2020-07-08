@@ -52,12 +52,14 @@ for v in 1..1 outbound
     ArangoDB arango = new ArangoDB.Builder().registerModule(new VPackJdk8Module()).build()
     ArangoDatabase testDb = arango.db("testDB")
 
+    /*
     ArangoCursor<BaseDocument> dcursor = testDb.query(
             """FOR c IN customers 
                 FOR o IN organisations 
                     FILTER c.organisation == o._id 
                     RETURN merge (c, {organisation: o})""",
             BaseDocument)
+       */
 
     /*ArangoCursor<BaseDocument> dcursor = testDb.query (
             """FOR c IN customers 
@@ -69,7 +71,7 @@ for v in 1..1 outbound
             BaseDocument
     )*/
 
-    def dcres =  dcursor?.toList()
+    //def dcres =  dcursor?.toList()
 
     /*
     Collection<Site> getSites()

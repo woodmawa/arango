@@ -111,6 +111,16 @@ public class CrudRunner implements CommandLineRunner {
 
         assert siteRepo.count() == (4+1)
 
+        Optional<Organisation> res2 = orgRepo.findByName("BT")
+        assert res2.isPresent()
+
+        Organisation BT = res2.get()
+        assert res2.get().sites.size() == 0
+        BT
+
+        Optional<Site> btSiteRef = siteRepo.findByName("BT centre, St Pauls")
+        Site btSite = btSiteRef.get()
+        btSite
 
         /* bulk insert test
         def v
