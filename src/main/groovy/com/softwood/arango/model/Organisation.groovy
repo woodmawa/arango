@@ -30,9 +30,13 @@ public class Organisation {
     String id
 
     String name
+    String registeredName
+    String registeredCompanyNumber
     String webAddress
     Integer inaugurated
-    OrgType type
+    OrgType type = OrgType.Other
+    String metaOrgId    //e.g. D&B ref etc
+    String status
 
 
     @Relations(edges = OperatesFromSites.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)

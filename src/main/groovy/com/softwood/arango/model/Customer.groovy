@@ -19,9 +19,6 @@ import java.time.LocalDateTime
 @EqualsAndHashCode
 class Customer extends PartyRole {
 
-    @Autowired
-    SiteRepository siteRepo
-
     @Id
     private String id
 
@@ -31,11 +28,13 @@ class Customer extends PartyRole {
     }
 
     String name
+    String shortName
     String description
     String webAddress
+    String status = "Active"
 
     LocalDateTime dateSigned
-    LocalDateTime createdDate
+    final LocalDateTime createdDate = LocalDateTime.now()
 
     @Relations(edges = HasContract.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)
     Collection<Contract> contracts = []
