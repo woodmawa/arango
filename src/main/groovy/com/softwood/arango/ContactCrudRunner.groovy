@@ -53,10 +53,7 @@ public class ContactCrudRunner implements CommandLineRunner {
 
         // first drop the database so that we can run this multiple times with the same dataset
         //operations.dropDatabase()
-
-        //crud runner will run these
-        //createOrgs()
-        //createSites()
+        
 
         contactRepo.saveAll(createContacts(contactRepo))
         List contacts = contactRepo.findBySurName("Woodman")
