@@ -41,7 +41,8 @@ public class ContactCrudRunner implements CommandLineRunner {
         Arrays.asList(
                 new Contact(firstName: "Will", surName: "Woodman", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer),
                 new Contact(firstName: "Marian", surName: "Woodman", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer),
-                new Contact(firstName: "Dominic", surName: "Woodman", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer)
+                new Contact(firstName: "Dominic", surName: "Woodman", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer),
+                new Contact(firstName: "Toby", surName: "Woodman", createdDate: LocalDateTime.now(), role: PartyRole.RoleType.Customer)
         )
     }
 
