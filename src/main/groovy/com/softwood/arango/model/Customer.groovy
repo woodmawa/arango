@@ -32,6 +32,7 @@ class Customer extends PartyRole {
     String description
     String webAddress
     String status = "Active"
+    String statusReason
 
     LocalDateTime dateSigned
     final LocalDateTime createdDate = LocalDateTime.now()

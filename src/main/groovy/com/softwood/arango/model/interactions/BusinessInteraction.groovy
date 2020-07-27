@@ -1,4 +1,4 @@
-package com.softwood.arango.model
+package com.softwood.arango.model.interactions
 
 import com.arangodb.springframework.annotation.Document
 import com.arangodb.springframework.annotation.HashIndex

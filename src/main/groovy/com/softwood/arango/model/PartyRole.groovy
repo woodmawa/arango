@@ -12,6 +12,14 @@ abstract class PartyRole {
     }
 
     RoleType role
+    String href
+
+    /**
+     * corresponds to @att-name in tmf api models
+     */
+    String atBaseType
+    String atSchemaLocation
+    String atType
 
     @Ref (lazy = false)
     Organisation organisation
