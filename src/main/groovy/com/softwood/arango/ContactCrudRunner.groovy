@@ -11,6 +11,7 @@ import com.softwood.arango.model.*
 import com.softwood.arango.model.contact.Contact
 import com.softwood.arango.relationships.HasContract
 import com.softwood.arango.repository.*
+import com.softwood.arango.repository.contact.ContactMediumRepository
 import com.softwood.arango.repository.contact.ContactRepository
 import com.softwood.arango.repository.contact.UseContactMediumRelationshipRepository
 import com.softwood.arango.services.CustomerService
@@ -29,10 +30,10 @@ public class ContactCrudRunner implements CommandLineRunner {
     private ContactRepository contactRepo
 
     @Autowired
-    private UseContactMediumRelationshipRepository hasContactMediumRelationshipRepo  //edge relationship
+    private ContactMediumRepository contactMediaRepo
 
     @Autowired
-    private OperatesFromSitesRelationshipRepository ownsRepo  //edge relationship
+    private UseContactMediumRelationshipRepository usesContactMediaRepo  //edge relationship
 
 
     static Collection<Contact> createContacts(ContactRepository contactRepo) {
@@ -53,7 +54,7 @@ public class ContactCrudRunner implements CommandLineRunner {
 
         // first drop the database so that we can run this multiple times with the same dataset
         //operations.dropDatabase()
-        
+
 
         contactRepo.saveAll(createContacts(contactRepo))
         List contacts = contactRepo.findBySurName("Woodman")
