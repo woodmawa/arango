@@ -4,10 +4,13 @@ import com.arangodb.springframework.annotation.Document
 import com.arangodb.springframework.annotation.HashIndex
 import com.arangodb.springframework.annotation.Relations
 import com.softwood.arango.model.Contract
+import com.softwood.arango.model.PartyRole
 import com.softwood.arango.relationships.HasContract
 import com.softwood.arango.relationships.contact.UsesContactMedium
 import groovy.transform.EqualsAndHashCode
 import org.springframework.data.annotation.Id
+
+import java.time.LocalDateTime
 
 @Document("contacts")
 @HashIndex(fields = ["name"], unique = false)
@@ -20,6 +23,9 @@ class Contact {
     final String getId (){
         id
     }
+
+    LocalDateTime createdDate
+    PartyRole.RoleType contactRole
 
     String firstName
     String surName

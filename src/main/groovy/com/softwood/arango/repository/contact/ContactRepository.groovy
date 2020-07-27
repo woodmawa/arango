@@ -15,8 +15,10 @@ import org.springframework.data.repository.query.Param
 //needs the class type, and type of field tagged with @Id in model
 public interface ContactRepository extends ArangoRepository<Contact, String> {
 
-    Contact findByName(String name)
+    List<Contact> findBySurName(String name)
+    List<Contact> findByFirstName(String name)
 
-    List<Contact> findByNameIgnoreCase (String name)
+    List<Contact> findByFirstNameIgnoreCase (String name)
+    List<Contact> findBySurNameIgnoreCase (String name)
 
 }
