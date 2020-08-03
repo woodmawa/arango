@@ -29,7 +29,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     //implementation 'org.codehaus.groovy:groovy'
-    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.4' //, ext: 'pom'
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.5' //, ext: 'pom'
 
 
     testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M3-groovy-3.0'

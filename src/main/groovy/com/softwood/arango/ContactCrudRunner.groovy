@@ -26,6 +26,7 @@ public class ContactCrudRunner implements CommandLineRunner {
 
     @Autowired
     private ArangoOperations operations
+    
     @Autowired
     private ContactRepository contactRepo
 
