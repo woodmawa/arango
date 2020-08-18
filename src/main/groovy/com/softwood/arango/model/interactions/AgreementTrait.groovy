@@ -1,6 +1,6 @@
 package com.softwood.arango.model.interactions
 
-import com.softwood.arango.model.contact.product.Product
+import com.softwood.arango.model.product.Product
 
 import java.time.Duration
 
