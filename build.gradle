@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
     id 'groovy'
 }
 
@@ -38,8 +38,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'com.arangodb:arangodb-spring-data:3.2.5'
-    implementation 'com.arangodb:arangodb-java-driver:6.6.3'
+    implementation 'com.arangodb:arangodb-spring-data:3.3.0'
+    implementation 'com.arangodb:arangodb-java-driver:6.7.3'
     //need for localDateTime unpacking on arango java api
     implementation  group: 'com.arangodb', name: 'velocypack-module-jdk8', version: '1.1.1'
 }
