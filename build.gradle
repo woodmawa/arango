@@ -1,14 +1,13 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.5.RELEASE'
-    id "io.spring.dependency-management" version "1.0.10.RELEASE"
+    id 'org.springframework.boot' version '2.5.4'
     id 'groovy'
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.softwood'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
-
-ext['groovy.version'] = '3.0.5'  //forces upgrade to groovy 3
 
 configurations {
     developmentOnly
@@ -18,27 +17,27 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    all {
+        resolutionStrategy.force 'org.codehaus.groovy:groovy-all:3.0.8'
+    }
 }
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     //implementation 'org.codehaus.groovy:groovy'
-    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.5' //, ext: 'pom'
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.8',  ext: 'pom'
 
 
-    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M3-groovy-3.0'
+//    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-groovy-3.0'
 
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'com.arangodb:arangodb-spring-data:3.3.0'
-    implementation 'com.arangodb:arangodb-java-driver:6.7.3'
-    //need for localDateTime unpacking on arango java api
-    implementation  group: 'com.arangodb', name: 'velocypack-module-jdk8', version: '1.1.1'
+    implementation 'com.arangodb:arangodb-spring-data:3.5.0'
+    implementation  'com.arangodb:arangodb-java-driver:6.12.3'
 }
