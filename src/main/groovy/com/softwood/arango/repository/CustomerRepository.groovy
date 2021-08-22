@@ -9,7 +9,7 @@ import com.arangodb.springframework.annotation.BindVars
 import com.arangodb.springframework.annotation.Query
 import com.arangodb.springframework.repository.ArangoRepository
 import com.arangodb.util.MapBuilder
-import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
+//import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
 import com.softwood.arango.model.Customer
 import com.softwood.arango.model.Organisation
 import com.softwood.arango.model.Site
@@ -49,7 +49,7 @@ for v in 1..1 outbound
     List<Site> customerSitesList2 (@BindVars Map<String, Object> bindvars)
 
     //use the java driver direct, register extra pack for LocalDateTime etc
-    ArangoDB arango = new ArangoDB.Builder().registerModule(new VPackJdk8Module()).build()
+    ArangoDB arango = new ArangoDB.Builder().build()
     ArangoDatabase testDb = arango.db("testDB")
 
     /*

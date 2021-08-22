@@ -25,7 +25,7 @@ class Contact {
     }
 
     LocalDateTime createdDate
-    PartyRole.RoleType contactRole
+    //PartyRole.RoleType contactRole
 
     String firstName
     String surName
@@ -35,6 +35,6 @@ class Contact {
     }
 
     //expect to see 0..1 to many media
-    @Relations(edges = UsesContactMedium.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)
-    Collection<Contract> contactMedia = []
+    //@Relations(edges = UsesContactMedium.class, maxDepth = 1, direction = Relations.Direction.ANY, lazy = true)
+    //Collection<Contact> contactMedia = []
 }

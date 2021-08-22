@@ -8,10 +8,11 @@ import groovy.transform.EqualsAndHashCode
 import org.springframework.data.annotation.Id
 import com.arangodb.springframework.annotation.Document
 
+
 @Document("organisations")
 @HashIndex(fields = ["name"], unique = true)
 @EqualsAndHashCode
-//set unique index
+
 public class Organisation {
 
     enum OrgType {

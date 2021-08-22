@@ -12,7 +12,8 @@ class ArangoApplication {
     static void main(String[] args) {
         //SpringApplication.run(ArangoApplication, args)
 
-        Class[] runners = Arrays.asList(CrudRunner.class, RelationsRunner.class, QueryRunner.class, CustomerCrudRunner.class)  //new Object[]
+        //Class[] runners = Arrays.asList(CrudRunner.class, RelationsRunner.class, QueryRunner.class, CustomerCrudRunner.class)  //new Object[]
+        Class[] runners = Arrays.asList( DummyRunner.class)
         System.exit(SpringApplication.exit(SpringApplication.run(runners, args)))
 
     }

@@ -6,7 +6,7 @@ import com.arangodb.ArangoDatabase
 import com.arangodb.springframework.annotation.BindVars
 import com.arangodb.springframework.annotation.Query
 import com.arangodb.springframework.repository.ArangoRepository
-import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
+//import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
 import com.softwood.arango.model.Customer
 import com.softwood.arango.model.Site
 import com.softwood.arango.model.contact.Contact

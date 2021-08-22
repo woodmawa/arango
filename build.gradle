@@ -40,4 +40,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'com.arangodb:arangodb-spring-data:3.5.0'
     implementation  'com.arangodb:arangodb-java-driver:6.12.3'
+    implementation 'com.arangodb:velocypack:2.5.3'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 }

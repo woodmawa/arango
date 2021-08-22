@@ -6,7 +6,7 @@ import com.arangodb.ArangoDatabase
 import com.arangodb.entity.CollectionPropertiesEntity
 import com.arangodb.springframework.core.ArangoOperations
 import com.arangodb.springframework.core.CollectionOperations
-import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
+//import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
 import com.softwood.arango.model.*
 import com.softwood.arango.model.contact.Contact
 import com.softwood.arango.relationships.HasContract

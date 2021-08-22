@@ -9,7 +9,7 @@ import com.arangodb.entity.DocumentEntity
 import com.arangodb.springframework.annotation.BindVars
 import com.arangodb.springframework.core.ArangoOperations
 import com.arangodb.springframework.core.CollectionOperations
-import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
+//import com.arangodb.velocypack.module.jdk8.VPackJdk8Module
 import com.softwood.arango.model.Contract
 import com.softwood.arango.model.Customer
 import com.softwood.arango.model.Organisation
@@ -154,7 +154,7 @@ public class CustomerCrudRunner implements CommandLineRunner {
         l*/
 
         //register LocaldateTime pack for velocty
-        ArangoDB arango = new ArangoDB.Builder().registerModule(new VPackJdk8Module()).build()
+        ArangoDB arango = new ArangoDB.Builder().build() //registerModule(new VPackJdk8Module()).
         ArangoDatabase testDb = arango.db("testDB")
 
 
